@@ -1,0 +1,44 @@
+plugins {
+    id 'java-library'
+}
+
+subprojects { proj ->
+    apply plugin: 'java'
+    apply plugin: 'java-library'
+    apply plugin: 'maven-publish'
+    group 'vn.rananu'
+    version = '8.0.0'
+    jar.archiveClassifier.convention('')
+    java {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+    }
+    configurations {
+        compileOnly {
+            extendsFrom annotationProcessor
+        }
+    }
+    repositories {
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+    }
+    dependencies {
+    }
+    publishing {
+        repositories {
+            maven {
+                name = "GitHubPackages"
+                url = "https://maven.pkg.github.com/cutv/rananu-java"
+                credentials {
+                    username = "cutv"
+                    password = GITHUB_TOKEN
+                }
+            }
+        }
+        publications {
+            gpr(MavenPublication) {
+                from(components.java)
+            }
+        }
+    }
+}
+

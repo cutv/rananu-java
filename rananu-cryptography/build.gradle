@@ -1,0 +1,7 @@
+plugins {
+
+}
+dependencies {
+    api 'commons-codec:commons-codec:1.16.0'
+}
+
