@@ -1,2 +1,2 @@
 rootProject.name = 'rananu-java'
-include 'rananu-cryptography'
+include 'rananu-codec'

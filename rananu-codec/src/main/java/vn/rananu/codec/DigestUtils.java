@@ -1,4 +1,4 @@
-package vn.rananu.cryptography;
+package vn.rananu.codec;
 
 import org.apache.commons.codec.binary.Hex;
 
