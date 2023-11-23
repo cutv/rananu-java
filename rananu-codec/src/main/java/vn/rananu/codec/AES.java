@@ -2,6 +2,7 @@ package vn.rananu.codec;
 
 
 import org.apache.commons.codec.binary.Hex;
+import org.apache.commons.codec.digest.DigestUtils;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -12,7 +13,7 @@ import java.util.Arrays;
 public final class AES {
     public static String encrypt(String data, String key) {
         try {
-            byte[] keyArrays = DigestUtils.sha256(key, StandardCharsets.UTF_8);
+            byte[] keyArrays = DigestUtils.sha256(key);
             SecretKeySpec keySpec = new SecretKeySpec(keyArrays, "AES");
 
             byte[] ivArrays = Arrays.copyOf(keyArrays, 16);
@@ -32,7 +33,7 @@ public final class AES {
 
     public static String decrypt(String data, String key) {
         try {
-            byte[] keyArrays = DigestUtils.sha256(key, StandardCharsets.UTF_8);
+            byte[] keyArrays = DigestUtils.sha256(key);
             SecretKeySpec keySpec = new SecretKeySpec(keyArrays, "AES");
 
             byte[] ivArrays = Arrays.copyOf(keyArrays, 16);
