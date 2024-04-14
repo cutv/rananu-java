@@ -8,6 +8,7 @@ import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
 
 import java.io.File;
 import java.io.FileReader;
+import java.io.Reader;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.Security;
@@ -19,18 +20,32 @@ public class RSA {
 
     public static PrivateKey parsePEMPrivateKey(File file) {
         try (FileReader fileReader = new FileReader(file)) {
-            PEMParser pemParser = new PEMParser(fileReader);
-            Object object = pemParser.readObject();
-            JcaPEMKeyConverter converter = new JcaPEMKeyConverter().setProvider("BC");
-            return converter.getPrivateKey(PrivateKeyInfo.getInstance(object));
+            return parsePEMPrivateKey(fileReader);
         } catch (Throwable cause) {
             throw new RSAException("Unable to parse RSA public key from base64 mudulus and exponent!", cause);
         }
     }
 
+    public static PrivateKey parsePEMPrivateKey(Reader reader) {
+        try {
+            PEMParser pemParser = new PEMParser(reader);
+            Object object = pemParser.readObject();
+            JcaPEMKeyConverter converter = new JcaPEMKeyConverter().setProvider("BC");
+            return converter.getPrivateKey(PrivateKeyInfo.getInstance(object));
+        } catch (Throwable cause) {
+            throw new RSAException("Unable to parse RSA private key from base64 mudulus and exponent!", cause);
+        }
+    }
     public static PublicKey parsePEMPublicKey(File file) {
         try (FileReader fileReader = new FileReader(file)) {
-            PEMParser pemParser = new PEMParser(fileReader);
+            return parsePEMPublicKey(fileReader);
+        } catch (Throwable cause) {
+            throw new RSAException("Unable to parse RSA public key from base64 mudulus and exponent!", cause);
+        }
+    }
+    public static PublicKey parsePEMPublicKey(Reader reader) {
+        try {
+            PEMParser pemParser = new PEMParser(reader);
             Object object = pemParser.readObject();
             JcaPEMKeyConverter converter = new JcaPEMKeyConverter().setProvider("BC");
             return converter.getPublicKey((SubjectPublicKeyInfo) object);
