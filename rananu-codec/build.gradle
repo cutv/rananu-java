@@ -3,6 +3,5 @@ plugins {
 }
 dependencies {
     api 'commons-codec:commons-codec:1.16.0'
-    api 'org.bouncycastle:bcpkix-jdk18on:1.77'
 }
 

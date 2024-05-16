@@ -7,7 +7,7 @@ subprojects { proj ->
     apply plugin: 'java-library'
     apply plugin: 'maven-publish'
     group 'vn.rananu'
-    version = '8.0.0'
+    version = '8.0.1'
     jar.archiveClassifier.convention('')
     java {
         sourceCompatibility = JavaVersion.VERSION_1_8
